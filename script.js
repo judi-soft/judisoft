@@ -177,19 +177,6 @@ formInputs.forEach((input) => {
   });
 });
 
-const newsletterForm = document.querySelector(".newsletter-form");
-
-newsletterForm.addEventListener("submit", (e) => {
-  e.preventDefault();
-
-  const email = newsletterForm.querySelector("input").value;
-
-  if (email) {
-    alert("Thank you for subscribing to our newsletter!");
-    newsletterForm.reset();
-  }
-});
-
 document.querySelectorAll('a[href^="#"]').forEach((anchor) => {
   anchor.addEventListener("click", function (e) {
     e.preventDefault();
@@ -212,6 +199,31 @@ window.addEventListener("scroll", () => {
   orbs.forEach((orb, index) => {
     const speed = 0.5 + index * 0.2;
     orb.style.transform = `translateY(${scrolled * speed}px)`;
+  });
+});
+
+document.addEventListener("DOMContentLoaded", () => {
+  const techIcons = document.querySelectorAll(".tech-icon");
+
+  techIcons.forEach((icon, index) => {
+    const randomDelay = Math.random() * 2;
+    const randomDuration = 3 + Math.random() * 2;
+
+    icon.style.animationDelay = `${randomDelay}s`;
+    icon.style.animationDuration = `${randomDuration}s`;
+
+    icon.addEventListener("click", function () {
+      this.style.animation = "none";
+      setTimeout(() => {
+        this.style.animation = "";
+      }, 10);
+
+      const ripple = document.createElement("span");
+      ripple.className = "ripple";
+      this.appendChild(ripple);
+
+      setTimeout(() => ripple.remove(), 600);
+    });
   });
 });
 
