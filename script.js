@@ -149,15 +149,32 @@ scrollTopBtn.addEventListener("click", () => {
 });
 
 const contactForm = document.querySelector(".contact-form");
+const submitBtn = document.getElementById("submitBtn");
+const formMessage = document.getElementById("formMessage");
 
-contactForm.addEventListener("submit", (e) => {
-  e.preventDefault();
+const formInputs = document.querySelectorAll(
+  ".contact-form input, .contact-form textarea"
+);
 
-  const formData = new FormData(contactForm);
+formInputs.forEach((input) => {
+  input.addEventListener("blur", function () {
+    if (this.hasAttribute("required") && !this.value.trim()) {
+      this.style.borderColor = "#ef4444";
+    } else if (this.type === "email" && this.value) {
+      const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+      if (!emailRegex.test(this.value)) {
+        this.style.borderColor = "#ef4444";
+      } else {
+        this.style.borderColor = "rgba(99, 102, 241, 0.5)";
+      }
+    } else if (this.value.trim()) {
+      this.style.borderColor = "rgba(99, 102, 241, 0.5)";
+    }
+  });
 
-  alert("Thank you for your message! We'll get back to you soon.");
-
-  contactForm.reset();
+  input.addEventListener("focus", function () {
+    this.style.borderColor = "var(--primary-color)";
+  });
 });
 
 const newsletterForm = document.querySelector(".newsletter-form");
